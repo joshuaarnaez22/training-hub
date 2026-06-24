@@ -5,7 +5,7 @@ import { filterTrainers } from './filterTrainers'
 describe('filterTrainers', () => {
   it('returns all trainers when no filters applied', () => {
     const result = filterTrainers(trainers)
-    expect(result).toHaveLength(8)
+    expect(result).toHaveLength(35)
   })
 
   it('filters by specialism', () => {
@@ -28,6 +28,25 @@ describe('filterTrainers', () => {
 
   it('returns empty array when no matches', () => {
     const result = filterTrainers(trainers, 'Botox', 'Edinburgh')
+    expect(result).toHaveLength(0)
+  })
+
+  it('filters by plan', () => {
+    const premium = filterTrainers(trainers, undefined, undefined, 'premium')
+    const standard = filterTrainers(trainers, undefined, undefined, 'standard')
+    expect(premium.every((t) => t.plan === 'premium')).toBe(true)
+    expect(standard.every((t) => t.plan === 'standard')).toBe(true)
+    expect(premium.length + standard.length).toBe(35)
+  })
+
+  it('filters by name search query', () => {
+    const result = filterTrainers(trainers, undefined, undefined, undefined, 'sarah')
+    expect(result.length).toBeGreaterThan(0)
+    expect(result.every((t) => t.name.toLowerCase().includes('sarah') || t.bio.toLowerCase().includes('sarah'))).toBe(true)
+  })
+
+  it('returns empty when search matches nothing', () => {
+    const result = filterTrainers(trainers, undefined, undefined, undefined, 'zzznomatch')
     expect(result).toHaveLength(0)
   })
 

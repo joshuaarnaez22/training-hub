@@ -1,24 +1,38 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { MapPin, Sparkles } from 'lucide-react'
+import { cn } from '@/lib/utils'
 import type { Trainer } from '@/lib/trainers'
+import TrainerAvatar from './TrainerAvatar'
 
 export default function TrainerCard({ trainer }: { trainer: Trainer }) {
   const isPremium = trainer.plan === 'premium'
 
   return (
-    <Card
-      className={
+    <div
+      className={cn(
+        'flex flex-col gap-3 rounded-xl p-4 ring-1 overflow-hidden h-full',
+        'transition-[box-shadow,transform] duration-150 motion-reduce:transition-none',
         isPremium
-          ? 'ring-2 ring-amber-400 shadow-md bg-amber-50'
-          : 'shadow-sm'
-      }
+          ? 'bg-premium-amber-surface ring-2 ring-premium-amber shadow-md hover:shadow-lg hover:-translate-y-0.5 motion-reduce:hover:translate-y-0'
+          : 'bg-card ring-foreground/10 hover:shadow-sm hover:-translate-y-0.5 motion-reduce:hover:translate-y-0'
+      )}
     >
-      <CardHeader className="pb-2">
-        <div className="flex items-start justify-between gap-2">
-          <CardTitle className="text-lg leading-tight">{trainer.name}</CardTitle>
+      {/* Header: avatar + name + tier badge */}
+      <div className="flex items-start gap-3">
+        <TrainerAvatar
+          name={trainer.name}
+          imageUrl={trainer.imageUrl}
+          className={cn('size-10', isPremium ? 'ring-2 ring-premium-amber' : 'ring-1 ring-foreground/10')}
+        />
+
+        <div className="flex flex-1 items-start justify-between gap-2 min-w-0 pt-0.5">
+          <div className="font-medium text-foreground leading-snug [text-wrap:balance]">
+            {trainer.name}
+          </div>
           {isPremium ? (
-            <Badge className="shrink-0 bg-amber-400 text-amber-900 hover:bg-amber-400">
-              ⭐ Premium
+            <Badge className="shrink-0 bg-premium-amber text-premium-amber-ink hover:bg-premium-amber gap-1">
+              <Sparkles aria-hidden="true" />
+              Premium
             </Badge>
           ) : (
             <Badge variant="secondary" className="shrink-0">
@@ -26,20 +40,27 @@ export default function TrainerCard({ trainer }: { trainer: Trainer }) {
             </Badge>
           )}
         </div>
-        <p className="text-sm text-muted-foreground">{trainer.bio}</p>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        <div className="flex flex-wrap gap-1">
-          {trainer.specialisms.map((s) => (
-            <Badge key={s} variant="outline" className="text-xs">
-              {s}
-            </Badge>
-          ))}
-        </div>
-        <p className="text-sm text-muted-foreground">
-          📍 {trainer.location}
-        </p>
-      </CardContent>
-    </Card>
+      </div>
+
+      {/* Bio */}
+      <p className="text-sm text-muted-foreground [text-wrap:pretty] line-clamp-2">
+        {trainer.bio}
+      </p>
+
+      {/* Specialisms */}
+      <div className="flex flex-wrap gap-1.5">
+        {trainer.specialisms.map((s) => (
+          <Badge key={s} variant="outline" className="text-xs font-normal">
+            {s}
+          </Badge>
+        ))}
+      </div>
+
+      {/* Location — pushed to bottom */}
+      <div className="flex items-center gap-1.5 text-sm text-muted-foreground mt-auto pt-1">
+        <MapPin className="size-3.5 shrink-0 opacity-60" strokeWidth={1.75} />
+        <span>{trainer.location}</span>
+      </div>
+    </div>
   )
 }

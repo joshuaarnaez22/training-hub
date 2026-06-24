@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-25T00:00:00.000Z",
+  "title": "Design System: Aesthetic Training Hub",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "primary",
+        "displayName": "Near-Black Ink",
+        "canonical": "oklch(0.145 0 0)",
+        "tonalRamp": [
+          "oklch(0.08 0 0)",
+          "oklch(0.145 0 0)",
+          "oklch(0.22 0 0)",
+          "oklch(0.35 0 0)",
+          "oklch(0.50 0 0)",
+          "oklch(0.65 0 0)",
+          "oklch(0.82 0 0)",
+          "oklch(0.95 0 0)"
+        ]
+      },
+      "primary": {
+        "role": "primary",
+        "displayName": "Charcoal Primary",
+        "canonical": "oklch(0.205 0 0)",
+        "tonalRamp": [
+          "oklch(0.08 0 0)",
+          "oklch(0.145 0 0)",
+          "oklch(0.205 0 0)",
+          "oklch(0.30 0 0)",
+          "oklch(0.44 0 0)",
+          "oklch(0.60 0 0)",
+          "oklch(0.78 0 0)",
+          "oklch(0.95 0 0)"
+        ]
+      },
+      "premium-amber": {
+        "role": "tertiary",
+        "displayName": "Honour Amber",
+        "canonical": "oklch(0.828 0.189 84.429)",
+        "tonalRamp": [
+          "oklch(0.22 0.08 84)",
+          "oklch(0.33 0.12 84)",
+          "oklch(0.46 0.16 84)",
+          "oklch(0.58 0.19 84)",
+          "oklch(0.70 0.19 84)",
+          "oklch(0.828 0.189 84)",
+          "oklch(0.92 0.12 84)",
+          "oklch(0.987 0.022 84)"
+        ]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Subdued Ink",
+        "canonical": "oklch(0.556 0 0)",
+        "tonalRamp": [
+          "oklch(0.10 0 0)",
+          "oklch(0.20 0 0)",
+          "oklch(0.35 0 0)",
+          "oklch(0.45 0 0)",
+          "oklch(0.556 0 0)",
+          "oklch(0.68 0 0)",
+          "oklch(0.82 0 0)",
+          "oklch(0.95 0 0)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Pure White",
+        "canonical": "oklch(1 0 0)",
+        "tonalRamp": [
+          "oklch(0.20 0 0)",
+          "oklch(0.38 0 0)",
+          "oklch(0.56 0 0)",
+          "oklch(0.70 0 0)",
+          "oklch(0.82 0 0)",
+          "oklch(0.90 0 0)",
+          "oklch(0.97 0 0)",
+          "oklch(1 0 0)"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Hairline Border",
+        "canonical": "oklch(0.922 0 0)",
+        "tonalRamp": [
+          "oklch(0.15 0 0)",
+          "oklch(0.30 0 0)",
+          "oklch(0.48 0 0)",
+          "oklch(0.62 0 0)",
+          "oklch(0.74 0 0)",
+          "oklch(0.85 0 0)",
+          "oklch(0.922 0 0)",
+          "oklch(0.97 0 0)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Page title only — the 'Aesthetic Training Hub' header." },
+      "title": { "displayName": "Title", "purpose": "Trainer names in card headers — the primary scannable element per listing." },
+      "body": { "displayName": "Body", "purpose": "Bios, descriptions, filter labels. 65–75ch max line length in reading contexts." },
+      "label": { "displayName": "Label", "purpose": "Specialism badges, results counts, secondary metadata." }
+    },
+    "shadows": [
+      {
+        "name": "tier-lift",
+        "value": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+        "purpose": "Exclusively for Premium trainer cards, always combined with amber ring. Never applied to Standard cards."
+      },
+      {
+        "name": "dropdown",
+        "value": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+        "purpose": "Select content and popover floating surfaces."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-quart",
+        "value": "cubic-bezier(0.25, 1, 0.5, 1)",
+        "purpose": "Default easing for all state transitions (hover, focus, open/close)."
+      },
+      {
+        "name": "duration-fast",
+        "value": "100ms",
+        "purpose": "Button hover, badge color shift — micro-interactions."
+      },
+      {
+        "name": "duration-standard",
+        "value": "200ms",
+        "purpose": "Card hover lift, dropdown open/close."
+      }
+    ],
+    "breakpoints": [
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main action button. Dark background, white text, gentle radius.",
+      "html": "<button class=\"ds-btn-primary\">Apply Filter</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; height: 32px; padding: 0 10px; background: oklch(0.205 0 0); color: oklch(1 0 0); font-family: system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; border: none; border-radius: 8px; cursor: pointer; transition: background 100ms cubic-bezier(0.25, 1, 0.5, 1), outline-offset 100ms; outline: none; } .ds-btn-primary:hover { background: oklch(0.145 0 0); } .ds-btn-primary:focus-visible { outline: 3px solid oklch(0.708 0 0 / 0.5); outline-offset: 2px; } .ds-btn-primary:active { transform: translateY(1px); }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Low-emphasis action. No background at rest, muted fill on hover.",
+      "html": "<button class=\"ds-btn-ghost\">Clear</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; height: 32px; padding: 0 10px; background: transparent; color: oklch(0.145 0 0); font-family: system-ui, sans-serif; font-size: 0.875rem; font-weight: 400; border: none; border-radius: 8px; cursor: pointer; transition: background 100ms cubic-bezier(0.25, 1, 0.5, 1); outline: none; } .ds-btn-ghost:hover { background: oklch(0.97 0 0); } .ds-btn-ghost:focus-visible { outline: 3px solid oklch(0.708 0 0 / 0.5); outline-offset: 2px; }"
+    },
+    {
+      "name": "Standard Trainer Card",
+      "kind": "card",
+      "refersTo": "card-standard",
+      "description": "Default listing card for Standard-tier trainers. Flat, ring-bounded.",
+      "html": "<div class=\"ds-card-standard\"><div class=\"ds-card-header\"><span class=\"ds-card-name\">Sophie Clarke</span><span class=\"ds-badge-standard\">Standard</span></div><p class=\"ds-card-bio\">Specialist in facial aesthetics and skin health with 6 years of clinical experience.</p><div class=\"ds-card-chips\"><span class=\"ds-badge-specialism\">Anti-Wrinkle</span><span class=\"ds-badge-specialism\">Dermal Fillers</span></div><p class=\"ds-card-location\">📍 Manchester</p></div>",
+      "css": ".ds-card-standard { display: flex; flex-direction: column; gap: 12px; background: oklch(1 0 0); border-radius: 12px; padding: 16px; box-shadow: 0 0 0 1px oklch(0.145 0 0 / 0.1); font-family: system-ui, sans-serif; } .ds-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; } .ds-card-name { font-size: 1rem; font-weight: 500; color: oklch(0.145 0 0); line-height: 1.3; } .ds-badge-standard { flex-shrink: 0; font-size: 0.75rem; font-weight: 400; background: oklch(0.97 0 0); color: oklch(0.145 0 0); border-radius: 6px; padding: 2px 8px; } .ds-card-bio { font-size: 0.875rem; color: oklch(0.556 0 0); line-height: 1.5; margin: 0; } .ds-card-chips { display: flex; flex-wrap: wrap; gap: 4px; } .ds-badge-specialism { font-size: 0.75rem; color: oklch(0.145 0 0); border: 1px solid oklch(0.922 0 0); border-radius: 6px; padding: 2px 8px; background: transparent; } .ds-card-location { font-size: 0.875rem; color: oklch(0.556 0 0); margin: 0; }"
+    },
+    {
+      "name": "Premium Trainer Card",
+      "kind": "card",
+      "refersTo": "card-premium",
+      "description": "Premium-tier listing. Two-signal treatment: amber ring + amber surface tint + tier-lift shadow.",
+      "html": "<div class=\"ds-card-premium\"><div class=\"ds-card-header\"><span class=\"ds-card-name\">Dr. Amara Osei</span><span class=\"ds-badge-premium\">⭐ Premium</span></div><p class=\"ds-card-bio\">Aesthetic doctor specialising in natural enhancement. GMC-registered with 10 years experience.</p><div class=\"ds-card-chips\"><span class=\"ds-badge-specialism\">Lip Filler</span><span class=\"ds-badge-specialism\">Anti-Wrinkle</span><span class=\"ds-badge-specialism\">PDO Threads</span></div><p class=\"ds-card-location\">📍 London</p></div>",
+      "css": ".ds-card-premium { display: flex; flex-direction: column; gap: 12px; background: oklch(0.987 0.022 95.277); border-radius: 12px; padding: 16px; box-shadow: 0 0 0 2px oklch(0.828 0.189 84.429), 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); font-family: system-ui, sans-serif; } .ds-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; } .ds-card-name { font-size: 1rem; font-weight: 500; color: oklch(0.145 0 0); line-height: 1.3; } .ds-badge-premium { flex-shrink: 0; font-size: 0.75rem; font-weight: 500; background: oklch(0.828 0.189 84.429); color: oklch(0.414 0.112 45.904); border-radius: 6px; padding: 2px 8px; } .ds-card-bio { font-size: 0.875rem; color: oklch(0.556 0 0); line-height: 1.5; margin: 0; } .ds-card-chips { display: flex; flex-wrap: wrap; gap: 4px; } .ds-badge-specialism { font-size: 0.75rem; color: oklch(0.145 0 0); border: 1px solid oklch(0.922 0 0); border-radius: 6px; padding: 2px 8px; background: transparent; } .ds-card-location { font-size: 0.875rem; color: oklch(0.556 0 0); margin: 0; }"
+    },
+    {
+      "name": "Specialism Badge",
+      "kind": "chip",
+      "refersTo": "badge-specialism",
+      "description": "Outline tag for trainer specialisms. Repeats multiple times per card.",
+      "html": "<span class=\"ds-badge-specialism-standalone\">PDO Threads</span>",
+      "css": ".ds-badge-specialism-standalone { display: inline-flex; align-items: center; font-family: system-ui, sans-serif; font-size: 0.75rem; font-weight: 400; color: oklch(0.145 0 0); border: 1px solid oklch(0.922 0 0); border-radius: 6px; padding: 2px 8px; background: transparent; }"
+    },
+    {
+      "name": "Select Trigger",
+      "kind": "input",
+      "refersTo": "select-trigger",
+      "description": "Filter dropdown trigger. Compact, outline style. Used in the FilterBar.",
+      "html": "<button class=\"ds-select-trigger\"><span class=\"ds-select-value\">All Specialisms</span><svg class=\"ds-select-icon\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"6 9 12 15 18 9\"/></svg></button>",
+      "css": ".ds-select-trigger { display: inline-flex; align-items: center; justify-content: space-between; gap: 6px; height: 32px; min-width: 160px; padding: 0 8px 0 10px; background: transparent; color: oklch(0.145 0 0); font-family: system-ui, sans-serif; font-size: 0.875rem; border: 1px solid oklch(0.922 0 0); border-radius: 8px; cursor: pointer; transition: border-color 100ms, background 100ms; outline: none; } .ds-select-trigger:hover { background: oklch(0.97 0 0); } .ds-select-trigger:focus-visible { border-color: oklch(0.708 0 0); outline: 3px solid oklch(0.708 0 0 / 0.5); outline-offset: 0; } .ds-select-value { flex: 1; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .ds-select-icon { color: oklch(0.556 0 0); flex-shrink: 0; pointer-events: none; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Credentialed Showcase",
+    "overview": "This is a gallery that only shows vetted work. A student arriving here is not browsing a generic listing — they are entering a curated professional space where being shown is itself a signal of quality. The design carries that weight: clean, legible, and deliberately undecorated, so the trainers' credentials speak rather than the interface.\n\nThe system is built on a grayscale neutral foundation with amber reserved exclusively for the Premium tier — the single colour that earns its place by signalling a real business distinction. Everything else defers. The hierarchy is typographic and positional, not decorative.\n\nThe system explicitly rejects the generic job-board aesthetic (clinical gray, zero personality, no curation signal) and the over-luxe beauty-brand aesthetic (dusty rose, heavy serif, candle-brand softness).",
+    "keyCharacteristics": [
+      "Single-typeface system (Inter); weight and size carry the hierarchy",
+      "Achromatic neutral palette — amber is the sole exception, reserved for Premium",
+      "Flat surfaces with thin rings; elevation only where it means something (the Premium tier)",
+      "Cards as the primary affordance — correct for a directory of professional profiles",
+      "Two-signal Premium treatment: amber ring + amber surface tint, always together"
+    ],
+    "rules": [
+      {
+        "name": "The One Colour Rule",
+        "body": "Honour Amber is the only saturated colour in the system. It exists exclusively to mark Premium trainer listings. Its rarity is what makes it mean something.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two-Signal Rule",
+        "body": "Premium differentiation uses two simultaneous signals: amber ring AND amber surface tint. Apply both together always. Either alone reads as an anomaly, not a tier upgrade.",
+        "section": "components"
+      },
+      {
+        "name": "The Weight-First Rule",
+        "body": "Hierarchy is established by font weight (bold → medium → regular), then size, never by colour alone. Do not reach for a new colour to differentiate a text level.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "All surfaces at rest are flat. Rings communicate structure; shadows communicate elevation. Shadows are reserved for floating surfaces and the Premium tier. Never add box-shadow to a Standard card.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use Honour Amber exclusively for Premium tier signals (ring, badge background, card surface tint).",
+      "Do apply the two-signal Premium treatment together — amber ring AND amber surface — always.",
+      "Do sort Premium trainers above Standard trainers in the listing grid.",
+      "Do use ring-1 ring-foreground/10 as the boundary for Standard cards. Thin rings, not shadows.",
+      "Do maintain 4.5:1 contrast minimum for all body text, including Subdued Ink on Pure White.",
+      "Do use text-wrap: balance on display headings and text-wrap: pretty on bio/body text.",
+      "Do derive filter options dynamically from trainer data — never hardcode specialism or location lists."
+    ],
+    "donts": [
+      "Don't make this look like a generic job board — clinical gray, utilitarian, zero curation signal.",
+      "Don't tip into over-luxe beauty brand territory — no dusty rose, no heavy script serif.",
+      "Don't use medical/clinical aesthetic — cold white, sterile blue, zero warmth.",
+      "Don't add shadows to Standard cards. Elevation is a Premium signal.",
+      "Don't use border-left or border-right greater than 1px as a colored accent stripe.",
+      "Don't use Honour Amber outside the Premium tier.",
+      "Don't add a second typeface. Inter at different weights is the hierarchy.",
+      "Don't let Subdued Ink text appear on any background lighter than Pure White."
+    ]
+  }
+}

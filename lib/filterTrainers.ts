@@ -3,7 +3,9 @@ import type { Trainer } from './trainers'
 export function filterTrainers(
   trainers: Trainer[],
   specialism?: string,
-  location?: string
+  location?: string,
+  plan?: 'standard' | 'premium',
+  q?: string
 ): Trainer[] {
   let results = trainers
 
@@ -13,6 +15,17 @@ export function filterTrainers(
 
   if (location) {
     results = results.filter((t) => t.location === location)
+  }
+
+  if (plan) {
+    results = results.filter((t) => t.plan === plan)
+  }
+
+  if (q) {
+    const lower = q.toLowerCase()
+    results = results.filter(
+      (t) => t.name.toLowerCase().includes(lower) || t.bio.toLowerCase().includes(lower)
+    )
   }
 
   return results.slice().sort((a, b) =>
