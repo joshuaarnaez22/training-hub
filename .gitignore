@@ -42,3 +42,6 @@ next-env.d.ts
 
 # SDD internal artifacts
 .superpowers/
+node_modules/
+.next/
+.DS_Store

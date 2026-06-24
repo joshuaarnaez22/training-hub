@@ -36,7 +36,7 @@ export default function FilterBar({
     <div className="flex flex-wrap gap-3">
       <Select value={specialism || ALL} onValueChange={(v) => update('specialism', v)}>
         <SelectTrigger className="w-52">
-          <SelectValue placeholder="All Specialisms" />
+          <SelectValue>{(v) => (v === ALL ? 'All Specialisms' : v)}</SelectValue>
         </SelectTrigger>
         <SelectContent>
           <SelectItem value={ALL}>All Specialisms</SelectItem>
@@ -48,7 +48,7 @@ export default function FilterBar({
 
       <Select value={location || ALL} onValueChange={(v) => update('location', v)}>
         <SelectTrigger className="w-44">
-          <SelectValue placeholder="All Locations" />
+          <SelectValue>{(v) => (v === ALL ? 'All Locations' : v)}</SelectValue>
         </SelectTrigger>
         <SelectContent>
           <SelectItem value={ALL}>All Locations</SelectItem>
