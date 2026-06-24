@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Aesthetic Training Hub — Public Directory
 
-## Getting Started
+The public directory page for the Aesthetic Training Hub: a marketplace where vetted UK aesthetics trainers list themselves and prospective students discover them. Trainers subscribe on one of two tiers — **Standard (£150/mo)** or **Premium (£249/mo)**.
 
-First, run the development server:
+## How to run
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open <http://localhost:3000>.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To run the tests:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm test
+```
 
-## Learn More
+**Requirements:** Node 18+. No database, no environment variables, no external services — it runs as-is.
 
-To learn more about Next.js, take a look at the following resources:
+## Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Next.js 16 (App Router), React 19, TypeScript (strict), Tailwind CSS, shadcn/ui. Data is a typed in-memory array — the brief said that was fine, so I didn't reach for a database.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## What I built
 
-## Deploy on Vercel
+- **Directory page** listing 8 sample trainers, each showing name, specialism(s), location, and plan tier.
+- **Premium trainers stand out** three ways: a gold ring + amber background tint, a `⭐ Premium` badge, and they always sort to the top of the list. A trainer paying £249/mo should get better *placement*, not just a different-coloured card — the visual treatment and the ordering reinforce each other.
+- **Filtering by both specialism and location.** Filters are driven by URL search params (`?specialism=Botox&location=London`), so the page is a Server Component with no client-side filtering state, and any filtered view is a shareable/bookmarkable URL.
+- **Empty state** when no trainer matches the active filters.
+- **Unit tests** (Vitest, 6 tests) covering the filter logic: each filter, both combined, the no-match case, and the premium-first ordering.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Architecture
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+app/
+  page.tsx              Server Component — reads URL params, filters, renders the grid
+  layout.tsx            Root layout + fonts
+  components/
+    TrainerCard.tsx     Presentational card; Premium vs Standard styling
+    FilterBar.tsx       Client Component; pushes filter changes to the URL
+lib/
+  trainers.ts           Trainer type + seed data; SPECIALISMS/LOCATIONS derived from the data
+  filterTrainers.ts     Pure, tested filtering + premium-first sort
+```
+
+Filter options are derived from the trainer data (`Array.from(new Set(...))`), not hardcoded — add a trainer with a new specialism and the dropdown updates itself.
+
+## What I skipped (and why)
+
+- **A database.** In-memory was explicitly allowed and 8 records don't justify the setup cost. `lib/trainers.ts` is the single seam to swap for a real data source.
+- **Pagination.** Pointless at 8 trainers. I'd add it around 20–30.
+- **Trainer detail pages, contact/booking, auth, the trainer-facing signup/billing flow.** All out of scope for a public directory page.
+
+## What I'd do next
+
+1. Postgres + an ORM (Prisma/Drizzle), keeping `filterTrainers` as the query boundary.
+2. Trainer detail pages (`/trainers/[id]`) with photos, qualifications, reviews.
+3. A free-text search box across name/bio/specialisms (see the LLM note below).
+4. Stripe subscriptions for the two tiers + an admin vetting/approval queue.
+
+## Where the brief was unclear or incomplete
+
+You asked for this part specifically, so here it is, straight.
+
+1. **"Filter by specialism *or* location (your choice)" is the wrong framing.** These aren't alternatives — a real student wants "a lip-filler trainer near Manchester," i.e. both at once. Offering only one axis would feel broken. I built both, because picking one would have been technically compliant and practically useless. If the "or" was a deliberate scope-cut to save my time, it cut the wrong thing: the second filter is ~15 lines.
+
+2. **"Make Premium stand out — your call" leaves the most important product question to the contractor.** How Premium is differentiated *is* the core of a two-tier marketplace's value proposition — it's what trainers are paying ~£99/mo extra for. I made a call (styling + top placement), but in a real engagement I'd push this back to you, because the answer is a business decision with revenue implications, not a styling preference. If Premiums always sort first, what happens when *every* trainer in a city is Premium? What stops the directory becoming pay-to-win and losing student trust? That's the conversation the brief skips.
+
+3. **"A few sample trainers" is underspecified in a way that matters.** With 3 trainers you can't meaningfully demonstrate filtering or the premium/standard split. I used 8 (4 + 4) so every interaction has something to show. Worth saying "enough to exercise the features."
+
+4. **No mention of empty states, loading, or what a student does *after* finding a trainer.** A directory that can't take you anywhere is a dead end. The single most valuable missing requirement isn't visual polish — it's the contact/enquiry action, which is presumably how the marketplace actually creates value for the trainers paying you.
+
+5. **What I'd change about the task itself:** the most revealing instruction here is "tell me what I got wrong." That signals you're hiring for judgment and communication, not just the ability to render a card grid. I'd lead with that — make the critique the headline deliverable and the page the supporting evidence, rather than the other way around. It's a better filter for the role you're describing.
+
+## Optional: using an LLM in this feature
+
+The filters are exact-match dropdowns — a student has to know the term is "PDO Threads," not "thread lift," and "Anti-Wrinkle," not "frown lines." The natural LLM upgrade is **semantic search**: a single box where a student types *"someone near Manchester for natural-looking lip filler"* and gets ranked results.
+
+Concretely: at build/write time, embed each trainer profile (name + bio + specialisms) into a vector; at query time, embed the student's text and rank trainers by cosine similarity, blended with a hard location filter. Store vectors in Postgres via `pgvector`. This augments the dropdowns rather than replacing them, and it's the feature most likely to improve student→trainer match quality — which is what the marketplace is ultimately selling.
+
+A lighter first step that ships in an afternoon: an LLM call that maps a free-text query to the existing structured filters (`"frown lines in London"` → `{ specialism: "Anti-Wrinkle", location: "London" }`), reusing the `filterTrainers` function already in place. Cheaper to build, no vector store, and it makes the existing filters feel intelligent.
