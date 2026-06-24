@@ -22,6 +22,7 @@ describe('filterTrainers', () => {
 
   it('filters by both specialism and location', () => {
     const result = filterTrainers(trainers, 'Botox', 'London')
+    expect(result.length).toBeGreaterThan(0)
     expect(result.every((t) => t.specialisms.includes('Botox') && t.location === 'London')).toBe(true)
   })
 
