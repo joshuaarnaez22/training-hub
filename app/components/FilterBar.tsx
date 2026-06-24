@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter, usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Search } from 'lucide-react'
 import {
   Select,
@@ -28,10 +28,16 @@ export default function FilterBar({
   const router = useRouter()
   const pathname = usePathname()
   const [searchValue, setSearchValue] = useState(q)
+  // tracks the last q value we pushed so the sync effect ignores our own URL updates
+  const lastPushedQ = useRef(q)
 
-  // Sync local state if URL changes (e.g. browser back)
-  // eslint-disable-next-line react-hooks/set-state-in-effect
-  useEffect(() => { setSearchValue(q) }, [q])
+  // Sync local state if URL changes (e.g. browser back) — skip if we caused the change
+  useEffect(() => {
+    if (q !== lastPushedQ.current) {
+      lastPushedQ.current = q
+      setSearchValue(q)
+    }
+  }, [q])
 
   // Debounce search → URL, resets page to 1
   useEffect(() => {
@@ -43,6 +49,7 @@ export default function FilterBar({
   }, [searchValue])
 
   function pushUrl(overrides: Partial<{ specialism: string; location: string; plan: string; q: string }>) {
+    if ('q' in overrides) lastPushedQ.current = overrides.q ?? ''
     const next = { specialism, location, plan, q, ...overrides }
     const params = new URLSearchParams()
     if (next.specialism && next.specialism !== ALL) params.set('specialism', next.specialism)
