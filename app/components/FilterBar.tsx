@@ -30,6 +30,7 @@ export default function FilterBar({
   const [searchValue, setSearchValue] = useState(q)
 
   // Sync local state if URL changes (e.g. browser back)
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { setSearchValue(q) }, [q])
 
   // Debounce search → URL, resets page to 1

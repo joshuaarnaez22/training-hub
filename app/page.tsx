@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { trainers } from '@/lib/trainers'
 import { filterTrainers } from '@/lib/filterTrainers'
 import TrainerGrid from '@/app/components/TrainerGrid'
@@ -41,12 +42,12 @@ export default async function Home({
           <FilterBar specialism={specialism} location={location} plan={plan} q={q} />
           <div className="flex items-center gap-3 shrink-0">
             {isFiltered && (
-              <a
+              <Link
                 href="/"
                 className="text-sm text-muted-foreground underline-offset-4 hover:underline focus-visible:outline-none"
               >
                 Clear
-              </a>
+              </Link>
             )}
             <p className="text-sm text-muted-foreground tabular-nums">
               {results.length} {results.length === 1 ? 'trainer' : 'trainers'}
@@ -82,12 +83,12 @@ export default async function Home({
               Try adjusting your filters, or clear them to see all available trainers.
             </p>
             {isFiltered && (
-              <a
+              <Link
                 href="/"
                 className="mt-6 inline-flex items-center rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
                 Clear filters
-              </a>
+              </Link>
             )}
           </div>
         )}

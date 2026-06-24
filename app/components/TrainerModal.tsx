@@ -26,7 +26,7 @@ export default function TrainerModal({
       <DialogContent className="max-w-lg p-0 overflow-hidden gap-0">
         {trainer && (
           <>
-            {isPremium && <div className="h-2 w-full bg-amber-400" />}
+            {isPremium && <div className="h-2 w-full bg-premium-amber" />}
 
             <div className="p-6 space-y-5">
               <DialogHeader>
@@ -35,7 +35,7 @@ export default function TrainerModal({
                   <TrainerAvatar
                     name={trainer.name}
                     imageUrl={trainer.imageUrl}
-                    className={cn('size-16', isPremium ? 'ring-2 ring-amber-400' : 'ring-1 ring-foreground/10')}
+                    className={cn('size-16', isPremium ? 'ring-2 ring-premium-amber' : 'ring-1 ring-foreground/10')}
                   />
                   <div className="flex-1 min-w-0 pt-1">
                     <div className="flex items-start justify-between gap-2">
@@ -43,7 +43,7 @@ export default function TrainerModal({
                         {trainer.name}
                       </DialogTitle>
                       {isPremium ? (
-                        <Badge className="shrink-0 bg-amber-400 text-amber-900 hover:bg-amber-400 gap-1">
+                        <Badge className="shrink-0 bg-premium-amber text-premium-amber-ink hover:bg-premium-amber gap-1">
                           <Sparkles className="size-3" aria-hidden="true" />
                           Premium
                         </Badge>
@@ -119,7 +119,7 @@ export default function TrainerModal({
                     'flex w-full items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors',
                     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
                     isPremium
-                      ? 'bg-amber-400 text-amber-900 hover:bg-amber-300'
+                      ? 'bg-premium-amber text-premium-amber-ink hover:bg-premium-amber/90'
                       : 'bg-foreground text-background hover:bg-foreground/90'
                   )}
                 >
