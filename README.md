@@ -50,7 +50,6 @@ Filter options are derived from the trainer data (`Array.from(new Set(...))`), n
 ## What I skipped (and why)
 
 - **A database.** In-memory was explicitly allowed and 8 records don't justify the setup cost. `lib/trainers.ts` is the single seam to swap for a real data source.
-- **Pagination.** Pointless at 8 trainers. I'd add it around 20–30.
 - **Trainer detail pages, contact/booking, auth, the trainer-facing signup/billing flow.** All out of scope for a public directory page.
 
 ## What I'd do next
