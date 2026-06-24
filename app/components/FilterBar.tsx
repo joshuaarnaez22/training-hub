@@ -69,7 +69,7 @@ export default function FilterBar({
         />
       </div>
 
-      <Select value={specialism || ALL} onValueChange={(v) => pushUrl({ specialism: v })}>
+      <Select value={specialism || ALL} onValueChange={(v) => pushUrl({ specialism: v ?? undefined })}>
         <SelectTrigger className="w-full sm:w-48" aria-label="Filter by specialism">
           <SelectValue>{(v) => (v === ALL ? 'All Specialisms' : v)}</SelectValue>
         </SelectTrigger>
@@ -81,7 +81,7 @@ export default function FilterBar({
         </SelectContent>
       </Select>
 
-      <Select value={location || ALL} onValueChange={(v) => pushUrl({ location: v })}>
+      <Select value={location || ALL} onValueChange={(v) => pushUrl({ location: v ?? undefined })}>
         <SelectTrigger className="w-full sm:w-40" aria-label="Filter by location">
           <SelectValue>{(v) => (v === ALL ? 'All Locations' : v)}</SelectValue>
         </SelectTrigger>
@@ -93,7 +93,7 @@ export default function FilterBar({
         </SelectContent>
       </Select>
 
-      <Select value={plan || ALL} onValueChange={(v) => pushUrl({ plan: v })}>
+      <Select value={plan || ALL} onValueChange={(v) => pushUrl({ plan: v ?? undefined })}>
         <SelectTrigger className="w-full sm:w-32" aria-label="Filter by plan">
           <SelectValue>{(v) => (v === ALL ? 'All Plans' : v === 'premium' ? '⭐ Premium' : 'Standard')}</SelectValue>
         </SelectTrigger>
